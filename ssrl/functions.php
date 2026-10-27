@@ -266,3 +266,48 @@ function ssrl_mobile_menu_script() {
     }
 }
 add_action('wp_enqueue_scripts', 'ssrl_mobile_menu_script');
+
+// ACTUALIZADOR NATIVO DEL TEMA DESDE GITHUB
+
+function ssrl_github_theme_update($transient) {
+    if (empty($transient->checked)) {
+        return $transient;
+    }
+
+    $theme_slug = 'ssrl';
+    $repo_api = 'https://api.github.com/repos/a8dogdark/themes_wordpress/releases/latest';
+
+    $response = wp_remote_get($repo_api, [
+        'timeout' => 10,
+        'headers' => [
+            'Accept' => 'application/vnd.github+json',
+        ],
+    ]);
+
+    if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+        return $transient;
+    }
+
+    $release = json_decode(wp_remote_retrieve_body($response));
+
+    if (empty($release->tag_name) || empty($release->zipball_url)) {
+        return $transient;
+    }
+
+    $latest_version = ltrim($release->tag_name, 'v');
+    $current_version = wp_get_theme($theme_slug)->get('Version');
+
+    if (version_compare($latest_version, $current_version, '>')) {
+        $transient->response[$theme_slug] = [
+            'theme'       => $theme_slug,
+            'new_version' => $latest_version,
+            'url'         => 'https://github.com/a8dogdark/themes_wordpress',
+            'package'     => $release->zipball_url,
+            'requires'    => '6.0',
+            'requires_php'=> '7.4',
+        ];
+    }
+
+    return $transient;
+}
+add_filter('pre_set_site_transient_update_themes', 'ssrl_github_theme_update');
