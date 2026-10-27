@@ -1,6 +1,7 @@
 name: Empaquetar tema SSRL
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -21,7 +22,15 @@ jobs:
           zip -r ../ssrl.zip . -x ".git/*"
 
       - name: Adjuntar ZIP a la release
+        if: github.event_name == 'release'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload "${{ github.event.release.tag_name }}" ssrl.zip --clobber
+
+      - name: Guardar ZIP como artefacto
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ssrl-theme
+          path: ssrl.zip
