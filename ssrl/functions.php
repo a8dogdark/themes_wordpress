@@ -278,9 +278,10 @@ function ssrl_github_theme_update($transient) {
     $repo_api = 'https://api.github.com/repos/a8dogdark/themes_wordpress/releases/latest';
 
     $response = wp_remote_get($repo_api, [
-        'timeout' => 10,
+        'timeout' => 15,
         'headers' => [
             'Accept' => 'application/vnd.github+json',
+            'User-Agent' => 'WordPress-SSRL-Updater',
         ],
     ]);
 
@@ -290,7 +291,21 @@ function ssrl_github_theme_update($transient) {
 
     $release = json_decode(wp_remote_retrieve_body($response));
 
-    if (empty($release->tag_name) || empty($release->zipball_url)) {
+    if (empty($release->tag_name) || empty($release->assets)) {
+        return $transient;
+    }
+
+    $package_url = '';
+
+    foreach ($release->assets as $asset) {
+        if (!empty($asset->name) && $asset->name === 'ssrl.zip'
+            && !empty($asset->browser_download_url)) {
+            $package_url = $asset->browser_download_url;
+            break;
+        }
+    }
+
+    if (!$package_url) {
         return $transient;
     }
 
@@ -299,12 +314,12 @@ function ssrl_github_theme_update($transient) {
 
     if (version_compare($latest_version, $current_version, '>')) {
         $transient->response[$theme_slug] = [
-            'theme'       => $theme_slug,
-            'new_version' => $latest_version,
-            'url'         => 'https://github.com/a8dogdark/themes_wordpress',
-            'package'     => $release->zipball_url,
-            'requires'    => '6.0',
-            'requires_php'=> '7.4',
+            'theme'        => $theme_slug,
+            'new_version'  => $latest_version,
+            'url'          => 'https://github.com/a8dogdark/themes_wordpress',
+            'package'      => $package_url,
+            'requires'     => '6.0',
+            'requires_php' => '7.4',
         ];
     }
 
