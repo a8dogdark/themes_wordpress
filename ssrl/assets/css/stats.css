@@ -1,0 +1,48 @@
+.hero-stats {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: -125px auto 0;
+    padding: 20px 0 35px;
+    z-index: 5;
+    color: #fff;
+    text-align: center;
+}
+
+.stat-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.stat-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 25%;
+    height: 50%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.stat-number {
+    font-family: Impact, "Arial Narrow", sans-serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -1px;
+    text-shadow: 0 0 15px rgba(0, 140, 255, 0.25);
+}
+
+.stat-label {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.4;
+}

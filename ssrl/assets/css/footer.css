@@ -1,0 +1,21 @@
+.site-footer {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #070b12;
+    color: #aab5c5;
+    text-align: center;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+.site-footer a {
+    color: #459aff;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: #fff;
+}

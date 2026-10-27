@@ -1,0 +1,140 @@
+/* Hero en móviles */
+@media (max-width: 600px) {
+    .hero-content {
+        left: 6%;
+        width: 88%;
+    }
+
+    .hero-content h1 {
+        font-size: 70px;
+    }
+
+    .hero-subtitle {
+        margin-bottom: 35px;
+        font-size: 15px;
+    }
+
+    .hero-description {
+        margin-bottom: 25px;
+        font-size: 17px;
+    }
+
+    .hero-button {
+        padding: 0 18px;
+        font-size: 12px;
+    }
+
+    .hero-text-item h2 {
+        font-size: 28px;
+    }
+
+    .hero-text-item .hero-description {
+        font-size: 16px;
+    }
+}
+
+/* Estadísticas en móviles */
+@media (max-width: 600px) {
+    .hero-stats {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        margin-top: -90px;
+        padding: 15px 5px 25px;
+    }
+
+    .stat-number {
+        font-size: clamp(24px, 6vw, 36px);
+    }
+
+    .stat-label {
+        font-size: 7px;
+        letter-spacing: 0.5px;
+    }
+}
+
+/* Menú hamburguesa */
+@media (max-width: 768px) {
+    .navbar-toggle {
+        display: block;
+    }
+
+    .site-header .navbar .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 4% !important;
+        right: 4% !important;
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 20px 3%;
+        transform: none !important;
+        box-sizing: border-box;
+        background: #070b12;
+        border-radius: 14px !important;
+        overflow: hidden;
+    }
+
+    .site-header .navbar .navbar-menu.is-open {
+        display: block;
+    }
+
+    .site-header .navbar .navbar-menu ul {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .site-header .navbar .navbar-menu a {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    body.admin-bar #wpadminbar {
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    body.admin-bar .site-header {
+        top: 46px;
+    }
+}
+
+/* Noticias en tablets */
+@media (max-width: 900px) {
+    .news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+}
+
+/* Noticias en móviles */
+@media (max-width: 600px) {
+    .news-section {
+        padding: 55px 5%;
+    }
+
+    .news-heading h2 {
+        font-size: 27px;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .news-image {
+        height: 190px;
+    }
+
+    .news-content {
+        padding: 20px;
+    }
+
+    .news-heading {
+        gap: 12px;
+    }
+
+    .news-view-all {
+        font-size: 12px;
+    }
+}
