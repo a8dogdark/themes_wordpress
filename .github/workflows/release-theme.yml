@@ -1,6 +1,8 @@
 name: Empaquetar tema SSRL
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
   release:
     types: [published]
