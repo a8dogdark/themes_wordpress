@@ -103,20 +103,8 @@
         <div class="stat-item">
             <span class="stat-number">
                 <?php
-                $categoria_equipos = get_category_by_slug('equipos');
-                $total_equipos = 0;
-
-                if ($categoria_equipos) {
-                    $subcategorias = get_categories([
-                        'taxonomy'   => 'category',
-                        'parent'     => $categoria_equipos->term_id,
-                        'hide_empty' => false,
-                    ]);
-
-                    $total_equipos = count($subcategorias);
-                }
-
-                echo esc_html(number_format_i18n($total_equipos));
+                $total_usuarios = count_users();
+                echo esc_html(number_format_i18n($total_usuarios['total_users']));
                 ?>
             </span>
             <span class="stat-label">PILOTOS</span>
